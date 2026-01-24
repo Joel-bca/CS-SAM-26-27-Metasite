@@ -69,13 +69,13 @@ class AntiCheatService {
     };
 
     this.violations.push(violation);
-    console.warn(`⚠️ Violation detected: ${type}`);
+    console.warn(`Violation detected: ${type}`);
 
     // Check if disqualified
     if (this.violations.length >= this.maxViolations) {
       this.disqualified = true;
       sessionStorage.setItem("studentDisqualified", "true");
-      console.error("❌ Student disqualified due to multiple violations!");
+      console.error("Student disqualified due to multiple violations.");
       this.triggerDisqualification();
     }
   }

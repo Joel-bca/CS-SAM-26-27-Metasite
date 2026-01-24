@@ -27,7 +27,7 @@ const Register = () => {
     localStorage.setItem("registrationTime", new Date().toISOString());
 
     AntiCheatService.startMonitoring();
-    navigate("/quiz");
+    navigate("/rules");
   };
 
   return (

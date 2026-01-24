@@ -150,7 +150,7 @@ const Certificate = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
-        ✓ Certificate is ready! You can download it now.
+        Certificate is ready! You can download it now.
       </motion.div>
     </motion.div>
   );

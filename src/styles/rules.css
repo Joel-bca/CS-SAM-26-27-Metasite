@@ -1,0 +1,590 @@
+/* Rules Page Styling */
+.rules-page {
+  height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  overflow: hidden;
+}
+
+/* Rules Header */
+.rules-header {
+  background: linear-gradient(135deg, #003a8f 0%, #002a5c 100%);
+  color: white;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 58, 143, 0.3);
+  flex-shrink: 0;
+}
+
+.rules-header .rules-logo {
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.rules-header h1 {
+  font-size: 2rem;
+  margin: 10px 0 5px 0;
+  font-weight: 700;
+}
+
+.rules-header p {
+  font-size: 0.9rem;
+  margin: 2px 0;
+  opacity: 0.95;
+}
+
+/* Rules Container */
+.rules-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.rules-content {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Rules Title */
+.rules-title {
+  font-size: 2rem;
+  color: #003a8f;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.welcome-text {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+.welcome-text strong {
+  color: #1a9c4b;
+}
+
+.instructions-text {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Rules List */
+.rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.rules-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.rules-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.rules-list::-webkit-scrollbar-thumb {
+  background: #003a8f;
+  border-radius: 10px;
+}
+
+.rules-list::-webkit-scrollbar-thumb:hover {
+  background: #002a6f;
+}
+
+/* Rule Item */
+.rule-item {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-left: 4px solid #003a8f;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.rule-item:hover {
+  background: #f0f5ff;
+  box-shadow: 0 4px 12px rgba(0, 58, 143, 0.1);
+  transform: translateX(4px);
+}
+
+.rule-number {
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #003a8f 0%, #1a9c4b 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.rule-content {
+  flex: 1;
+}
+
+.rule-content h3 {
+  font-size: 1rem;
+  color: #003a8f;
+  margin: 0 0 6px 0;
+  font-weight: 700;
+}
+
+.rule-content p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* All The Best Section */
+.all-the-best {
+  text-align: center;
+  padding: 30px 20px;
+  margin-top: 20px;
+}
+
+.all-the-best h2 {
+  font-size: 2rem;
+  color: #003a8f;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Acceptance Section */
+.acceptance-section {
+  padding: 20px;
+  background: linear-gradient(135deg, #f0fff4 0%, #f0f5ff 100%);
+  border-radius: 8px;
+  border-left: 4px solid #1a9c4b;
+}
+
+.acceptance-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.acceptance-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #1a9c4b;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Rules Actions */
+.rules-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #003a8f 0%, #0055d4 100%);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(0, 58, 143, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .rules-content {
+    padding: 30px;
+    gap: 20px;
+  }
+
+  .rules-title {
+    font-size: 1.8rem;
+  }
+
+  .rules-list {
+    max-height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rules-page {
+    padding: 0;
+  }
+
+  .rules-header {
+    padding: 15px;
+  }
+
+  .rules-header .rules-logo {
+    height: 60px;
+    margin-bottom: 8px;
+  }
+
+  .rules-header h1 {
+    font-size: 1.6rem;
+    margin: 8px 0 3px 0;
+  }
+
+  .rules-header p {
+    font-size: 0.8rem;
+    margin: 1px 0;
+  }
+
+  .rules-container {
+    padding: 12px;
+  }
+
+  .rules-content {
+    padding: 25px;
+    gap: 18px;
+    border-radius: 10px;
+  }
+
+  .rules-title {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .welcome-text {
+    font-size: 1rem;
+  }
+
+  .instructions-text {
+    font-size: 0.85rem;
+  }
+
+  .rules-list {
+    gap: 12px;
+    max-height: 300px;
+  }
+
+  .rule-item {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .rule-number {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .rule-content h3 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .rule-content p {
+    font-size: 0.85rem;
+  }
+
+  .acceptance-section {
+    padding: 15px;
+  }
+
+  .acceptance-checkbox {
+    font-size: 0.9rem;
+  }
+
+  .acceptance-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+  }
+
+  .rules-actions {
+    gap: 12px;
+  }
+
+  .btn {
+    padding: 11px 22px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .rules-header {
+    padding: 12px;
+  }
+
+  .rules-header .rules-logo {
+    height: 50px;
+    margin-bottom: 6px;
+  }
+
+  .rules-header h1 {
+    font-size: 1.3rem;
+    margin: 6px 0 2px 0;
+  }
+
+  .rules-header p {
+    font-size: 0.75rem;
+    margin: 1px 0;
+  }
+
+  .rules-container {
+    padding: 10px;
+  }
+
+  .rules-content {
+    padding: 20px;
+    gap: 15px;
+    border-radius: 8px;
+  }
+
+  .rules-title {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+
+  .welcome-text {
+    font-size: 0.95rem;
+  }
+
+  .instructions-text {
+    font-size: 0.8rem;
+  }
+
+  .rules-list {
+    gap: 10px;
+    max-height: 280px;
+  }
+
+  .rule-item {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .rule-number {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .rule-content h3 {
+    font-size: 0.85rem;
+    margin-bottom: 3px;
+  }
+
+  .rule-content p {
+    font-size: 0.8rem;
+  }
+
+  .acceptance-section {
+    padding: 12px;
+  }
+
+  .acceptance-checkbox {
+    font-size: 0.8rem;
+    gap: 10px;
+  }
+
+  .acceptance-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+  }
+
+  .rules-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 18px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rules-header {
+    padding: 10px;
+  }
+
+  .rules-header .rules-logo {
+    height: 45px;
+    margin-bottom: 5px;
+  }
+
+  .rules-header h1 {
+    font-size: 1.1rem;
+    margin: 5px 0 2px 0;
+  }
+
+  .rules-header p {
+    font-size: 0.7rem;
+    margin: 0.5px 0;
+  }
+
+  .rules-container {
+    padding: 8px;
+  }
+
+  .rules-content {
+    padding: 16px;
+    gap: 12px;
+    border-radius: 6px;
+  }
+
+  .rules-title {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+
+  .welcome-text {
+    font-size: 0.9rem;
+  }
+
+  .instructions-text {
+    font-size: 0.75rem;
+  }
+
+  .rules-list {
+    gap: 8px;
+    max-height: 260px;
+  }
+
+  .rule-item {
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .rule-number {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+
+  .rule-content h3 {
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+  }
+
+  .rule-content p {
+    font-size: 0.75rem;
+  }
+
+  .acceptance-section {
+    padding: 10px;
+  }
+
+  .acceptance-checkbox {
+    font-size: 0.75rem;
+    gap: 8px;
+  }
+
+  .acceptance-checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+
+  .btn {
+    padding: 9px 16px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .rules-header .rules-logo {
+    height: 40px;
+  }
+
+  .rules-header h1 {
+    font-size: 0.95rem;
+  }
+
+  .rules-header p {
+    font-size: 0.65rem;
+  }
+
+  .rules-content {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .rules-title {
+    font-size: 1rem;
+  }
+
+  .rule-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 0.75rem;
+  }
+}

@@ -1,3 +1,5 @@
+
+
 import { motion } from "framer-motion";
 import {
   FaUserGraduate,
@@ -18,7 +20,9 @@ const RegistrationForm = ({ name, regNo, error, onNameChange, onRegNoChange, onS
       <div className="header">
         <img src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/9f7c2746ec4ea940c7d622fcb4ab477379765386/chirst_logo.png" alt="Christ Logo" className="logo" />
         <h1>National Voters' Day Quiz</h1>
-        <p>Christ University – Yeshwanthpur Campus</p>
+        <p>CHRIST UNIVERSITY – Yeshwanthpur Campus</p>
+        <p>DEPARTMENT OF COMPUTER SCIENCE</p>
+        <p>SAMAGRA ASSOCIATION</p>
       </div>
 
       <motion.div
@@ -65,6 +69,11 @@ const RegistrationForm = ({ name, regNo, error, onNameChange, onRegNoChange, onS
           <FaCheckCircle /> Start Quiz <FaArrowRight />
         </motion.div>
       </motion.div>
+
+      <div className="footer">
+        Developed by Paul Joel P [2 BCA B] | Shalini Alamleu S V [2 BCA B]
+    
+      </div>
     </motion.div>
   );
 };

@@ -1,138 +1,137 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  FaCheckCircle,
-  FaTimesCircle,
-  FaEdit,
-  FaFileAlt,
-  FaHome,
-  FaArrowLeft,
-  FaArrowRight,
-  FaShieldAlt,
-} from "react-icons/fa";
 import AntiCheatService from "../services/AntiCheatService";
+import QuizHeader from "../components/QuizHeader";
+import QuizTopBar from "../components/QuizTopBar";
+import TimerCircle from "../components/TimerCircle";
+import QuestionSection from "../components/QuestionSection";
+import NavigationBar from "../components/NavigationBar";
+import QuizStartScreen from "../components/QuizStartScreen";
+import QuizQuestionScreen from "../components/QuizQuestionScreen";
+import QuizResultsScreen from "../components/QuizResultsScreen";
+import DisqualificationScreen from "../components/DisqualificationScreen";
 import "../styles/quiz.css";
 
 const quizQuestions = [
   {
     id: 1,
-    question: "International Voters' Day is celebrated every year on:",
-    options: ["24 January", "25 January", "26 January", "30 January"],
-    correct: 1, // Index B
+    question: "National Voters' Day is celebrated every year on:",
+    options: ["26 January", "24 January", "30 January", "25 January"],
+    correct: 3, // Index D
   },
   {
     id: 2,
-    question: "International Voters' Day commemorates the establishment of:",
-    options: ["Indian Constitution", "Parliament of India", "Election Commission of India", "Supreme Court of India"],
+    question: "Which situation best represents the objective of National Voters' Day in practice?",
+    options: ["A political party releasing its election manifesto", "A voter choosing NOTA without knowing candidate details", "A first-time voter registering, learning about candidates, and voting responsibly", "A government announcing election results early"],
     correct: 2, // Index C
   },
   {
     id: 3,
     question: "The Election Commission of India was established in:",
-    options: ["1947", "1949", "1950", "1952"],
+    options: ["1949", "1952", "1950", "1947"],
     correct: 2, // Index C
   },
   {
     id: 4,
-    question: "The primary objective of International Voters' Day is to:",
-    options: ["Promote political parties", "Encourage voter awareness and participation", "Announce election results", "Conduct opinion polls"],
-    correct: 1, // Index B
+    question: "The primary objective of National Voters' Day is to:",
+    options: ["Conduct opinion polls", "Promote political parties", "Announce election results", "Encourage voter awareness and participation"],
+    correct: 3, // Index D
   },
   {
     id: 5,
-    question: "Who among the following can vote in India?",
-    options: ["Citizens above 16 years", "Residents above 18 years", "Citizens above 18 years", "Citizens above 21 years"],
-    correct: 2, // Index C
+    question: "Who among the following is eligible to vote in India?",
+    options: ["Citizens above 18 years", "Residents above 18 years", "Citizens above 21 years", "Citizens above 16 years"],
+    correct: 0, // Index A
   },
   {
     id: 6,
     question: "Voting in India is considered a:",
-    options: ["Fundamental Right", "Legal Right", "Fundamental Duty", "Moral Obligation only"],
-    correct: 1, // Index B
+    options: ["Fundamental Duty", "Fundamental Right", "Moral Obligation only", "Legal Right"],
+    correct: 3, // Index D
   },
   {
     id: 7,
-    question: "Which document is commonly used as proof for voting?",
-    options: ["Aadhaar Card", "PAN Card", "Voter ID Card", "Passport"],
-    correct: 2, // Index C
+    question: "Which document is officially issued for voting purposes in India?",
+    options: ["Passport", "Voter ID Card", "PAN Card", "Aadhaar Card"],
+    correct: 1, // Index B
   },
   {
     id: 8,
-    question: "International Voters' Day was first celebrated in India in:",
-    options: ["2005", "2008", "2011", "2015"],
-    correct: 2, // Index C
+    question: "National Voters' Day was first celebrated in India in:",
+    options: ["2008", "2011", "2005", "2015"],
+    correct: 1, // Index B
   },
   {
     id: 9,
-    question: "Which group is mainly encouraged during International Voters' Day celebrations?",
-    options: ["Senior citizens", "Political leaders", "First-time voters", "Government officials"],
+    question: "Which group is mainly encouraged during National Voters' Day celebrations?",
+    options: ["Political leaders", "Government officials", "First-time voters", "Senior citizens"],
     correct: 2, // Index C
   },
   {
     id: 10,
     question: "The main role of the Election Commission of India is to:",
-    options: ["Frame election laws", "Conduct free and fair elections", "Declare political parties", "Appoint judges"],
-    correct: 1, // Index B
+    options: ["Declare political parties", "Appoint judges", "Conduct free and fair elections", "Frame election laws"],
+    correct: 2, // Index C
   },
   {
     id: 11,
     question: "Which of the following is NOT a function of the Election Commission of India?",
-    options: ["Preparing electoral rolls", "Conducting elections", "Framing laws", "Enforcing the Model Code of Conduct"],
-    correct: 2, // Index C
+    options: ["Enforcing the Model Code of Conduct", "Preparing electoral rolls", "Conducting elections", "Framing laws"],
+    correct: 3, // Index D
   },
   {
     id: 12,
-    question: "Elections in India are conducted under the provision of:",
-    options: ["Indian Penal Code", "Representation of the People Act", "Right to Information Act", "Citizenship Act"],
+    question: "Which of the following activities is most closely associated with National Voters' Day celebrations in India?",
+    options: ["Declaring election results", "Organizing voter awareness programs and enrollment drives", "Launching political campaigns", "Conducting exit polls"],
     correct: 1, // Index B
   },
   {
     id: 13,
-    question: "Article related to elections in the Indian Constitution is:",
-    options: ["Article 14", "Article 19", "Article 324", "Article 356"],
-    correct: 2, // Index C
+    question: "Article 324 of the Indian Constitution deals with:",
+    options: ["Reservation of seats", "Universal adult franchise", "Disqualification of members", "Powers and functions of the Election Commission"],
+    correct: 3, // Index D
   },
   {
     id: 14,
-    question: "Voter registration in India is based on the principle of:",
-    options: ["Proportional Representation", "Universal Adult Franchise", "Separate Electorate", "Indirect Election"],
-    correct: 1, // Index B
+    question: "The principle that allows every adult citizen to vote without discrimination is known as:",
+    options: ["Separate Electorate", "Proportional Representation", "Electoral College", "Universal Adult Franchise"],
+    correct: 3, // Index D
   },
   {
     id: 15,
-    question: "International Voters' Day promotes which democratic value?",
-    options: ["Judicial review", "Equality before law", "Popular sovereignty", "Federalism"],
-    correct: 2, // Index C
+    question: "From a democratic perspective, National Voters' Day primarily reinforces which principle?",
+    options: ["Separation of powers", "Rule of law", "Federalism", "Popular participation in governance"],
+    correct: 3, // Index D
   },
   {
     id: 16,
-    question: "The right to vote ensures citizens' participation in:",
-    options: ["Judiciary", "Executive", "Democracy", "Bureaucracy"],
+    question: "Which of the following best reflects the educational purpose of National Voters' Day?",
+    options: ["Training political candidates", "Encouraging party membership", "Promoting informed and ethical voting", "Announcing election schedules"],
     correct: 2, // Index C
   },
   {
     id: 17,
-    question: "Which of the following best describes the importance of voting?",
-    options: ["Personal benefit", "Political pressure", "Citizen's voice in governance", "Party loyalty"],
+    question: "Participation in elections strengthens democracy primarily because it:",
+    options: ["Reduces administrative workload", "Increases government revenue", "Allows citizens to choose their representatives", "Ensures political stability only"],
     correct: 2, // Index C
   },
   {
     id: 18,
-    question: "Who issues the Voter ID card in India?",
-    options: ["Ministry of Home Affairs", "Election Commission of India", "State Government", "Parliament"],
-    correct: 1, // Index B
+    question: "Voter awareness initiatives under National Voters' Day aim to reduce:",
+    options: ["Number of political parties", "Election expenditure", "Political competition", "Voter apathy and misinformation"],
+    correct: 3, // Index D
   },
   {
     id: 19,
-    question: "International Voters' Day is celebrated to recognize the role of:",
-    options: ["Political leaders", "Election officials", "Voters", "Political parties"],
-    correct: 2, // Index C
+    question: "National Voters' Day is celebrated to recognize the importance of:",
+    options: ["Political leaders", "Voters", "Election officials", "Political parties"],
+    correct: 1, // Index B
   },
   {
     id: 20,
-    question: "Free and fair elections are essential for:",
-    options: ["Dictatorship", "Monarchy", "Democracy", "Oligarchy"],
+    question: "Free and fair elections are essential for the survival of:",
+    options: ["Oligarchy", "Monarchy", "Democracy", "Dictatorship"],
     correct: 2, // Index C
   },
 ];
@@ -144,6 +143,34 @@ const Quiz = () => {
   const [showResults, setShowResults] = useState(false);
   const [voterName, setVoterName] = useState("");
   const [isDisqualified, setIsDisqualified] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(30); // 30 seconds per question
+  const [quizStarted, setQuizStarted] = useState(false);
+
+  // Timer effect for per-question timing
+  useEffect(() => {
+    if (!quizStarted || showResults || isDisqualified) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          // Auto move to next question when time runs out
+          if (currentQuestionIndex < quizQuestions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            return 30;
+          } else {
+            // Auto submit on last question when timer ends
+            setShowResults(true);
+            setCurrentView("results");
+            return 0;
+          }
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [quizStarted, currentQuestionIndex, showResults, isDisqualified]);
 
   useEffect(() => {
     const name = localStorage.getItem("voterName");
@@ -153,9 +180,17 @@ const Quiz = () => {
     }
     setVoterName(name);
 
-    const savedAnswers = localStorage.getItem("quizAnswers");
-    if (savedAnswers) {
-      setAnswers(JSON.parse(savedAnswers));
+    // Only restore answers if quiz was already in progress
+    const quizInProgress = localStorage.getItem("quizInProgress");
+    if (quizInProgress === "true") {
+      const savedAnswers = localStorage.getItem("quizAnswers");
+      if (savedAnswers) {
+        setAnswers(JSON.parse(savedAnswers));
+      }
+    } else {
+      // Start fresh quiz with all blank answers
+      setAnswers(Array(20).fill(-1));
+      localStorage.setItem("quizAnswers", JSON.stringify(Array(20).fill(-1)));
     }
 
     // Check if student was already disqualified
@@ -182,6 +217,26 @@ const Quiz = () => {
     localStorage.setItem("quizAnswers", JSON.stringify(newAnswers));
   };
 
+  const moveToNextQuestion = () => {
+    if (currentQuestionIndex < quizQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setTimeLeft(30);
+    }
+  };
+
+  const moveToPreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setTimeLeft(30);
+    }
+  };
+
+  const handleStartQuiz = () => {
+    localStorage.setItem("quizInProgress", "true");
+    setQuizStarted(true);
+    setTimeLeft(30);
+  };
+
   const calculateScore = () => {
     let correct = 0;
     answers.forEach((answer, index) => {
@@ -202,21 +257,33 @@ const Quiz = () => {
   };
 
   const handleViewCertificate = () => {
+    const score = calculateScore();
+    if (score < 80) {
+      alert(`Your score is ${score}%. You need at least 80% to be eligible for a certificate. Please retake the quiz.`);
+      return;
+    }
     localStorage.setItem("quizCompleted", "true");
+    localStorage.setItem("quizScore", score);
     navigate("/certificate");
   };
 
   const handleRetakeQuiz = () => {
     setAnswers(Array(20).fill(-1));
     localStorage.removeItem("quizAnswers");
+    localStorage.setItem("quizAnswers", JSON.stringify(Array(20).fill(-1)));
+    localStorage.setItem("quizInProgress", "true");
     setShowResults(false);
     setCurrentView("quiz");
+    setCurrentQuestionIndex(0);
+    setTimeLeft(30);
+    setQuizStarted(true);
   };
 
   const handleGoHome = () => {
     localStorage.removeItem("voterName");
     localStorage.removeItem("quizAnswers");
     localStorage.removeItem("quizCompleted");
+    localStorage.removeItem("quizInProgress");
     navigate("/");
   };
 
@@ -224,281 +291,43 @@ const Quiz = () => {
   const correctCount = answers.filter((ans, idx) => ans === quizQuestions[idx].correct).length;
 
   if (showResults && currentView === "results") {
-    return (
-      <motion.div
-        className="quiz-results-page"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="results-header">
-          <h1>Quiz Completed!</h1>
-          <p>Your Performance Analysis</p>
-        </div>
-
-        <motion.div
-          className="score-card"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="score-display">
-            <div className="score-circle">
-              <div className="score-percentage">{score}%</div>
-              <div className="score-label">Score</div>
-            </div>
-          </div>
-
-          <div className="score-stats">
-            <div className="stat-item correct-stat">
-              <FaCheckCircle className="stat-icon" />
-              <div>
-                <div className="stat-number">{correctCount}</div>
-                <div className="stat-label">Correct Answers</div>
-              </div>
-            </div>
-            <div className="stat-item incorrect-stat">
-              <FaTimesCircle className="stat-icon" />
-              <div>
-                <div className="stat-number">{20 - correctCount}</div>
-                <div className="stat-label">Incorrect Answers</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="performance-message">
-            {score >= 80 && <p>🎉 Excellent Performance! You're a voting knowledge expert!</p>}
-            {score >= 60 && score < 80 && <p>👏 Great Job! You have good understanding of voting!</p>}
-            {score >= 40 && score < 60 && <p>📚 Good Effort! Keep learning about voting rights!</p>}
-            {score < 40 && <p>💡 Keep Trying! Review the answers and try again!</p>}
-          </div>
-        </motion.div>
-
-        {/* Scoresheet */}
-        <motion.div
-          className="scoresheet-container"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <h2>
-            <FaFileAlt /> Detailed Scoresheet
-          </h2>
-
-          <div className="scoresheet-questions">
-            {quizQuestions.map((question, index) => {
-              const userAnswer = answers[index];
-              const isCorrect = userAnswer === question.correct;
-
-              return (
-                <motion.div
-                  key={question.id}
-                  className={`scoresheet-item ${isCorrect ? "correct" : "incorrect"}`}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.4 + index * 0.02 }}
-                >
-                  <div className="question-number">Q{question.id}</div>
-
-                  <div className="question-content">
-                    <p className="question-text">{question.question}</p>
-
-                    <div className="answer-display">
-                      <div className="user-answer">
-                        <span className="label">Your Answer:</span>
-                        <span className={`answer-text ${isCorrect ? "correct-answer" : "wrong-answer"}`}>
-                          {userAnswer !== -1
-                            ? `${String.fromCharCode(65 + userAnswer)}) ${question.options[userAnswer]}`
-                            : "Not Answered"}
-                        </span>
-                      </div>
-
-                      {!isCorrect && (
-                        <div className="correct-answer-display">
-                          <span className="label">Correct Answer:</span>
-                          <span className="answer-text correct-answer">
-                            {`${String.fromCharCode(65 + question.correct)}) ${question.options[question.correct]}`}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="result-badge">
-                      {isCorrect ? (
-                        <>
-                          <FaCheckCircle /> Correct
-                        </>
-                      ) : (
-                        <>
-                          <FaTimesCircle /> Incorrect
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        {/* Action Buttons */}
-        <div className="results-actions">
-          <motion.button
-            className="btn btn-primary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleViewCertificate}
-          >
-            <FaFileAlt /> View Certificate
-          </motion.button>
-          <motion.button
-            className="btn btn-secondary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleRetakeQuiz}
-          >
-            <FaEdit /> Retake Quiz
-          </motion.button>
-          <motion.button
-            className="btn btn-tertiary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleGoHome}
-          >
-            <FaHome /> Go Home
-          </motion.button>
-        </div>
-      </motion.div>
-    );
+    return <QuizResultsScreen
+      score={score}
+      correctCount={correctCount}
+      quizQuestions={quizQuestions}
+      answers={answers}
+      handleViewCertificate={handleViewCertificate}
+      handleRetakeQuiz={handleRetakeQuiz}
+      handleGoHome={handleGoHome}
+    />;
   }
 
   // Disqualification Screen
   if (isDisqualified) {
-    return (
-      <motion.div
-        className="quiz-page"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="disqualification-screen">
-          <motion.div
-            className="disqualification-content"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <FaShieldAlt className="disqualification-icon" />
-            <h1>❌ Disqualified</h1>
-            <p>Your exam has been terminated due to violation of exam integrity rules.</p>
-
-            <div className="violation-details">
-              <h3>Violations Detected:</h3>
-              <ul>
-                {AntiCheatService.getViolations().map((v, idx) => (
-                  <li key={idx}>
-                    🚫 {v.type} - {new Date(v.timestamp).toLocaleTimeString()}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <p className="disqualification-message">
-              Please contact the exam administrator for more information.
-            </p>
-
-            <motion.button
-              className="btn btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                localStorage.clear();
-                AntiCheatService.stopMonitoring();
-                navigate("/");
-              }}
-            >
-              <FaHome /> Return to Home
-            </motion.button>
-          </motion.div>
-        </div>
-      </motion.div>
-    );
+    return <DisqualificationScreen handleGoHome={handleGoHome} />;
   }
 
+  // Start Quiz Screen
+  if (!quizStarted) {
+    return <QuizStartScreen voterName={voterName} handleStartQuiz={handleStartQuiz} />;
+  }
+
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  const isAnswered = answers[currentQuestionIndex] !== -1;
+  const timerClass = timeLeft <= 15 ? "timer-warning" : "";
+
   return (
-    <motion.div
-      className="quiz-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="quiz-header">
-        <img src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/9f7c2746ec4ea940c7d622fcb4ab477379765386/chirst_logo.png" alt="Christ Logo" className="logo" />
-        <h1>National Voters' Day Quiz</h1>
-        <p>Welcome, <strong>{voterName}</strong></p>
-      </div>
-
-      <div className="quiz-progress">
-        <span>Total Questions: 20</span>
-        <span>Progress: {answers.filter(a => a !== -1).length}/20</span>
-      </div>
-
-      <motion.div
-        className="quiz-container"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <div className="questions-grid">
-          {quizQuestions.map((question, index) => (
-            <motion.div
-              key={question.id}
-              className="question-card"
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.1 + index * 0.02 }}
-            >
-              <div className="question-header">
-                <h3>Question {question.id}</h3>
-                {answers[index] !== -1 && (
-                  <span className="answered-badge">
-                    <FaCheckCircle /> Answered
-                  </span>
-                )}
-              </div>
-
-              <p className="question-text">{question.question}</p>
-
-              <div className="options-grid">
-                {question.options.map((option, optionIndex) => (
-                  <motion.button
-                    key={optionIndex}
-                    className={`option-button ${answers[index] === optionIndex ? "selected" : ""}`}
-                    onClick={() => handleAnswerChange(index, optionIndex)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span className="option-label">{String.fromCharCode(65 + optionIndex)}.</span>
-                    <span className="option-text">{option}</span>
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="quiz-actions">
-          <motion.button
-            className="btn btn-primary btn-large"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleSubmit}
-          >
-            <FaCheckCircle /> Submit Quiz & View Results
-          </motion.button>
-        </div>
-      </motion.div>
-    </motion.div>
+    <QuizQuestionScreen
+      voterName={voterName}
+      currentQuestionIndex={currentQuestionIndex}
+      quizQuestions={quizQuestions}
+      answers={answers}
+      timeLeft={timeLeft}
+      handleAnswerChange={handleAnswerChange}
+      moveToPreviousQuestion={moveToPreviousQuestion}
+      moveToNextQuestion={moveToNextQuestion}
+      handleSubmit={handleSubmit}
+    />
   );
 };
 

@@ -4,16 +4,25 @@
 
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
+  padding: 0;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(135deg, #f4f7fb 0%, #e8f0f7 100%);
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .register-page {
-  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  justify-content: flex-start;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f4f7fb 0%, #e8f0f7 100%);
 }
 
 .certificate-page {
@@ -29,10 +38,12 @@ body {
   background: linear-gradient(135deg, #003a8f 0%, #002a5c 100%);
   color: white;
   width: 100%;
-  padding: 40px 20px;
+  max-width: 400px;
+  padding: 20px;
   text-align: center;
-  margin: -20px -20px 0 -20px;
-  box-shadow: 0 4px 15px rgba(0, 58, 143, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 58, 143, 0.3);
+  margin-top: 20px;
 }
 
 .header h1 {
@@ -46,7 +57,7 @@ body {
 }
 
 .logo {
-  height: 200px;
+  height: 150px;
   margin-bottom: 1px;
 }
 
@@ -114,12 +125,12 @@ body {
 /* Form Card */
 .form-card {
   background: white;
-  padding: 40px;
+  padding: 20px;
   width: 100%;
-  max-width: 450px;
+  max-width: 400px;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  margin-bottom: 40px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
   animation: slideIn 0.4s ease-out;
 }
 
@@ -445,4 +456,484 @@ body {
   .button-group {
     flex-direction: column;
   }
+}
+
+@media (max-width: 600px) {
+  .register-page {
+    padding: 8px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 20px 15px;
+    margin: 15px -8px 0 -8px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+    margin: 10px 0 3px 0;
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .logo {
+    height: 120px;
+    margin-bottom: 0;
+  }
+
+  .progress-container {
+    gap: 12px;
+    margin: 30px 0;
+    width: 100%;
+  }
+
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+    border-width: 2px;
+    margin-bottom: 6px;
+  }
+
+  .progress-step p {
+    font-size: 12px;
+  }
+
+  .progress-line {
+    width: 15px;
+    height: 2px;
+  }
+
+  .form-card {
+    padding: 18px;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  .form-card h2 {
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+
+  .step-subtitle {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .input-group {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+  }
+
+  .icon {
+    margin-right: 10px;
+    font-size: 16px;
+  }
+
+  .input-group input,
+  .input-group select {
+    font-size: 14px;
+  }
+
+  .input-group label {
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+
+  .error-text {
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+
+  .next-button,
+  .go-quiz-box {
+    padding: 12px;
+    font-size: 14px;
+    margin-top: 18px;
+  }
+
+  .button-group {
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .btn {
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+
+  .certificate-header h1 {
+    font-size: 24px;
+  }
+
+  .certificate-header p {
+    font-size: 14px;
+  }
+
+  .certificate-container {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+
+  .cert-border-outer {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    border: 3px solid #d4af37;
+  }
+
+  .cert-border-inner {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1px solid #d4af37;
+  }
+
+  .cert-title {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .cert-subtitle {
+    font-size: 16px;
+  }
+
+  .cert-text {
+    font-size: 14px;
+  }
+
+  .cert-name {
+    font-size: 22px;
+  }
+
+  .cert-details p {
+    font-size: 12px;
+  }
+
+  .certificate-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .certificate-actions .btn {
+    padding: 12px;
+  }
+
+  .footer {
+    font-size: 10px;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-page {
+    padding: 6px;
+  }
+
+  .header {
+    padding: 16px 12px;
+    margin: 12px -6px 0 -6px;
+  }
+
+  .header h1 {
+    font-size: 18px;
+    margin: 8px 0 2px 0;
+  }
+
+  .header p {
+    font-size: 0.85rem;
+  }
+
+  .logo {
+    height: 100px;
+  }
+
+  .progress-container {
+    gap: 8px;
+    margin: 20px 0;
+  }
+
+  .step-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+    border-width: 2px;
+    margin-bottom: 4px;
+  }
+
+  .progress-step p {
+    font-size: 10px;
+  }
+
+  .progress-line {
+    width: 10px;
+    height: 2px;
+  }
+
+  .form-card {
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .form-card h2 {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .step-subtitle {
+    font-size: 11px;
+    margin-bottom: 18px;
+  }
+
+  .input-group {
+    padding: 9px;
+    margin-bottom: 14px;
+    border-radius: 5px;
+  }
+
+  .icon {
+    margin-right: 8px;
+    font-size: 15px;
+  }
+
+  .input-group input,
+  .input-group select {
+    font-size: 13px;
+  }
+
+  .input-group label {
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+
+  .input-group input[type="date"],
+  .input-group select {
+    padding: 6px;
+  }
+
+  .error-text {
+    font-size: 11px;
+    margin-top: -9px;
+    margin-bottom: 9px;
+  }
+
+  .next-button,
+  .go-quiz-box {
+    padding: 11px;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+
+  .button-group {
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .btn {
+    padding: 11px;
+    font-size: 13px;
+    border-radius: 5px;
+  }
+
+  .certificate-page {
+    padding: 20px 10px;
+  }
+
+  .certificate-header h1 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .certificate-header p {
+    font-size: 12px;
+  }
+
+  .certificate-container {
+    padding: 15px;
+    margin-bottom: 25px;
+    min-height: auto;
+  }
+
+  .cert-border-outer {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 2px solid #d4af37;
+  }
+
+  .cert-border-inner {
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 1px solid #d4af37;
+  }
+
+  .cert-title {
+    font-size: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .cert-subtitle {
+    font-size: 14px;
+    margin: 3px 0 15px 0;
+  }
+
+  .cert-text {
+    font-size: 12px;
+    margin: 6px 0;
+  }
+
+  .cert-name {
+    font-size: 18px;
+  }
+
+  .cert-details p {
+    font-size: 11px;
+    margin: 6px 0;
+  }
+
+  .cert-id {
+    font-size: 10px;
+  }
+
+  .cert-footer {
+    font-size: 12px;
+  }
+
+  .certificate-actions {
+    flex-direction: column;
+    gap: 8px;
+    max-width: 100%;
+  }
+
+  .certificate-actions .btn {
+    padding: 11px;
+    font-size: 13px;
+  }
+
+  .footer {
+    font-size: 9px;
+    padding: 3px;
+  }
+}
+
+@media (max-width: 380px) {
+  .register-page {
+    padding: 5px;
+  }
+
+  .header {
+    padding: 14px 10px;
+    margin: 10px -5px 0 -5px;
+  }
+
+  .header h1 {
+    font-size: 16px;
+    margin: 6px 0 2px 0;
+  }
+
+  .header p {
+    font-size: 0.8rem;
+  }
+
+  .logo {
+    height: 90px;
+  }
+
+  .progress-container {
+    gap: 6px;
+    margin: 15px 0;
+  }
+
+  .step-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+
+  .progress-step p {
+    font-size: 9px;
+  }
+
+  .form-card {
+    padding: 14px;
+    margin-bottom: 8px;
+  }
+
+  .form-card h2 {
+    font-size: 16px;
+  }
+
+  .step-subtitle {
+    font-size: 10px;
+    margin-bottom: 16px;
+  }
+
+  .input-group {
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+
+  .icon {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .input-group input,
+  .input-group select {
+    font-size: 12px;
+  }
+
+  .input-group label {
+    font-size: 11px;
+  }
+
+  .next-button,
+  .go-quiz-box {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .button-group {
+    gap: 8px;
+  }
+
+  .btn {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .certificate-header h1 {
+    font-size: 18px;
+  }
+
+  .cert-title {
+    font-size: 18px;
+  }
+
+  .certificate-actions .btn {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 5px 10px;
+  font-size: 11px;
+  color: #666;
+  margin-top: auto;
 }
