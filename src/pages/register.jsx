@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaUserGraduate, FaIdCard, FaEnvelope } from "react-icons/fa";
-import "./register.css";
+import "../styles/register.css";
 
 const Register = () => {
   const navigate = useNavigate();
