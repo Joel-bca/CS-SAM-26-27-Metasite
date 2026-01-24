@@ -8,6 +8,10 @@
   overflow-y: auto;
 }
 
+.results-page {
+  overflow: hidden;
+}
+
 /* Top Bar */
 .quiz-top-bar {
   background: white;

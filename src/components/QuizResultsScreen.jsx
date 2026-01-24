@@ -19,7 +19,7 @@ const QuizResultsScreen = ({
 }) => {
   return (
     <motion.div
-      className="quiz-results-page"
+      className="quiz-page results-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
