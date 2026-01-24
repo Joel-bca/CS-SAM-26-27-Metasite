@@ -93,7 +93,7 @@
 .rules-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1px;
   max-height: 400px;
   overflow-y: auto;
   padding-right: 10px;
@@ -170,9 +170,8 @@
 /* All The Best Section */
 .all-the-best {
   text-align: center;
-  padding: 30px 20px;
-  margin-top: 20px;
-}
+  padding: 5px 20px;
+  }
 
 .all-the-best h2 {
   font-size: 2rem;

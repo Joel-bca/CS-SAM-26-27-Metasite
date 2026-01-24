@@ -56,7 +56,6 @@ const Rules = () => {
         transition={{ delay: 0.2, duration: 0.6 }}
       >
         <div className="rules-content">
-          <h2 className="rules-title"><strong>RULES AND REGULATIONS</strong></h2>
           <p className="welcome-text">Welcome, <strong>{voterName}</strong></p>
           <p className="instructions-text">Please read the following rules carefully before proceeding with the quiz.</p>
 
@@ -71,10 +70,30 @@ const Rules = () => {
               <div className="rule-content">
                 <h3><strong>20 QUESTIONS</strong></h3>
               </div>
+            </motion.div>
+          </div>
+
+          <div className="rules-list">
+            <motion.div 
+              className="rule-item"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               <div className="rule-number">2</div>
               <div className="rule-content">
                 <h3><strong>30 SECONDS PER QUESTION</strong></h3>
               </div>
+            </motion.div>
+          </div>
+
+                    <div className="rules-list">
+            <motion.div 
+              className="rule-item"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               <div className="rule-number">3</div>
               <div className="rule-content">
                 <h3><strong>NO TAB OR WINDOW SHIFTING</strong></h3>
