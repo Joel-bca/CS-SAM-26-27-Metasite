@@ -1,26 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight, FaCheckCircle } from 'react-icons/fa';
+import { FaArrowRight, FaCheckCircle } from 'react-icons/fa';
 
 const NavigationBar = ({
   currentQuestionIndex,
   totalQuestions,
-  moveToPreviousQuestion,
   moveToNextQuestion,
   handleSubmit
 }) => {
   return (
     <div className="navigation-bar">
-      <motion.button
-        className={`nav-btn prev-btn ${currentQuestionIndex === 0 ? "disabled" : ""}`}
-        disabled={currentQuestionIndex === 0}
-        onClick={moveToPreviousQuestion}
-        whileHover={{ scale: currentQuestionIndex === 0 ? 1 : 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <FaArrowLeft /> Previous
-      </motion.button>
-
       <div className="progress-bar-container">
         <div className="progress-bar">
           <div

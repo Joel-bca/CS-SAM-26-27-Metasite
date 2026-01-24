@@ -7,7 +7,6 @@ import QuizTopBar from "../components/QuizTopBar";
 import TimerCircle from "../components/TimerCircle";
 import QuestionSection from "../components/QuestionSection";
 import NavigationBar from "../components/NavigationBar";
-import QuizStartScreen from "../components/QuizStartScreen";
 import QuizQuestionScreen from "../components/QuizQuestionScreen";
 import QuizResultsScreen from "../components/QuizResultsScreen";
 import DisqualificationScreen from "../components/DisqualificationScreen";
@@ -224,13 +223,6 @@ const Quiz = () => {
     }
   };
 
-  const moveToPreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setTimeLeft(30);
-    }
-  };
-
   const handleStartQuiz = () => {
     localStorage.setItem("quizInProgress", "true");
     setQuizStarted(true);
@@ -307,11 +299,6 @@ const Quiz = () => {
     return <DisqualificationScreen handleGoHome={handleGoHome} />;
   }
 
-  // Start Quiz Screen
-  if (!quizStarted) {
-    return <QuizStartScreen voterName={voterName} handleStartQuiz={handleStartQuiz} />;
-  }
-
   const currentQuestion = quizQuestions[currentQuestionIndex];
   const isAnswered = answers[currentQuestionIndex] !== -1;
   const timerClass = timeLeft <= 15 ? "timer-warning" : "";
@@ -324,7 +311,6 @@ const Quiz = () => {
       answers={answers}
       timeLeft={timeLeft}
       handleAnswerChange={handleAnswerChange}
-      moveToPreviousQuestion={moveToPreviousQuestion}
       moveToNextQuestion={moveToNextQuestion}
       handleSubmit={handleSubmit}
     />

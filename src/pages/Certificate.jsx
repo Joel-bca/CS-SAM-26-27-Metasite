@@ -6,74 +6,75 @@ import "../styles/certificate.css";
 
 const Certificate = () => {
   const navigate = useNavigate();
-  const [voterName, setVoterName] = useState("");
+  const [userName, setUserName] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
-    const name = localStorage.getItem("voterName");
-    if (!name) {
-      alert("No voter information found. Please register first!");
+    const storedName = localStorage.getItem("userName");
+
+    if (!storedName) {
+      alert("No user information found. Please complete the quiz first!");
       navigate("/");
       return;
     }
-    setVoterName(name);
+
+    setUserName(storedName);
   }, [navigate]);
 
+  const loadHtml2Canvas = () => {
+    return new Promise((resolve) => {
+      if (window.html2canvas) {
+        resolve();
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src =
+        "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+      script.onload = resolve;
+      document.body.appendChild(script);
+    });
+  };
+
   const downloadCertificate = async () => {
-    if (!voterName) {
-      alert("Unable to download. Voter name not found!");
+    if (!userName) {
+      alert("User name missing. Cannot generate certificate.");
       return;
     }
 
     setIsDownloading(true);
+
     try {
-      const script = document.createElement("script");
-      script.src =
-        "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+      await loadHtml2Canvas();
 
-      script.onload = function () {
-        const certificateContainer = document.querySelector(
-          ".certificate-container"
-        );
-        window.html2canvas(certificateContainer, {
-          scale: 3,
-          backgroundColor: "transparent",
-          logging: false,
-          useCORS: true,
-          allowTaint: true,
-        }).then((canvas) => {
-          const link = document.createElement("a");
-          link.href = canvas.toDataURL("image/png");
-          link.download = `Certificate_${voterName.replace(
-            /\s+/g,
-            "_"
-          )}_Voters_Day.png`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          setIsDownloading(false);
-        });
-      };
+      const certificate = document.querySelector(".certificate-container");
 
-      document.head.appendChild(script);
-    } catch (error) {
-      console.error("Error generating certificate:", error);
+      const canvas = await window.html2canvas(certificate, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: null,
+      });
+
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = `Certificate_${userName.replace(/\s+/g, "_")}.png`;
+      link.click();
+    } catch (err) {
+      console.error(err);
       alert("Failed to download certificate. Please try again.");
+    } finally {
       setIsDownloading(false);
     }
   };
 
   const goHome = () => {
-    localStorage.removeItem("voterName");
-    localStorage.removeItem("voterRegNo");
-    localStorage.removeItem("quizAnswers");
-    localStorage.removeItem("quizCompleted");
+    localStorage.clear();
     navigate("/");
   };
 
-  if (!voterName) {
+  if (!userName) {
     return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <div className="center-screen">
         <p>Loading certificate...</p>
       </div>
     );
@@ -87,71 +88,52 @@ const Certificate = () => {
       transition={{ duration: 0.6 }}
     >
       <div className="certificate-header">
-        <h1>Certificate of Participation</h1>
-        <p>National Voters' Day Quiz</p>
+        <h1>Certificate of Achievement</h1>
+        <p>Quiz Completion</p>
       </div>
 
       <motion.div
         className="certificate-container"
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2 }}
       >
-        {/* Logos Header */}
+        {/* Logos */}
         <div className="logos-header">
-          <div className="logo-item">
-            <img 
-              src="/christ-logo.png" 
-              alt="Christ University Logo" 
-              className="cert-logo main-logo"
-            />
-          </div>
-          <div className="logo-item">
-            <img 
-              src="/logo-samagra.png" 
-              alt="Samagra Association Logo" 
-              className="cert-logo association-logo"
-            />
-          </div>
+          <img src="/christ-logo.png" className="cert-logo main-logo" />
+          <img src="/logo-samagra.png" className="cert-logo association-logo" />
         </div>
 
+        {/* Background */}
         <img
           src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/cec08b7c1e1ea72d3a62ca1530a4a4e4b8766890/certificate%20votersday.png"
-          alt="Certificate of Participation"
           className="certificate-background"
+          alt="Certificate"
         />
 
+        {/* USER NAME */}
         <div className="name-container">
-          <div className="participant-name">{voterName}</div>
+          <div className="participant-name">{userName}</div>
         </div>
       </motion.div>
 
-      <motion.div
-        className="certificate-actions"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
+      <div className="certificate-actions">
         <button
           className="btn btn-primary"
           onClick={downloadCertificate}
           disabled={isDownloading}
         >
-          <FaDownload /> {isDownloading ? "Downloading..." : "Download Certificate"}
+          <FaDownload />
+          {isDownloading ? "Generating..." : "Download Certificate"}
         </button>
-        <button className="btn btn-secondary" onClick={goHome}>
-          <FaHome /> Go to Home
-        </button>
-      </motion.div>
 
-      <motion.div
-        className="status-message success"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.4 }}
-      >
-        Certificate is ready! You can download it now.
-      </motion.div>
+        <button className="btn btn-secondary" onClick={goHome}>
+          <FaHome /> Home
+        </button>
+      </div>
+
+      <div className="status-message success">
+        🎉 Certificate generated successfully!
+      </div>
     </motion.div>
   );
 };

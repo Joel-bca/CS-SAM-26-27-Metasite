@@ -12,7 +12,6 @@ const QuizQuestionScreen = ({
   answers,
   timeLeft,
   handleAnswerChange,
-  moveToPreviousQuestion,
   moveToNextQuestion,
   handleSubmit
 }) => {
@@ -49,7 +48,6 @@ const QuizQuestionScreen = ({
           <NavigationBar
             currentQuestionIndex={currentQuestionIndex}
             totalQuestions={quizQuestions.length}
-            moveToPreviousQuestion={moveToPreviousQuestion}
             moveToNextQuestion={moveToNextQuestion}
             handleSubmit={handleSubmit}
           />
