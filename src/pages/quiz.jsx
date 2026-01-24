@@ -4,7 +4,6 @@ import AntiCheatService from "../services/AntiCheatService";
 import QuizQuestionScreen from "../components/QuizQuestionScreen";
 import QuizResultsScreen from "../components/QuizResultsScreen";
 import DisqualificationScreen from "../components/DisqualificationScreen";
-import Footer from "../components/Footer";
 import "../styles/quiz.css";
 
 const quizQuestions = [
@@ -203,7 +202,6 @@ const Quiz = () => {
         moveToNextQuestion={moveToNextQuestion}
         handleSubmit={submitQuiz}
       />
-      <Footer />
     </>
   );
 };
