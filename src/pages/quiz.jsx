@@ -146,30 +146,47 @@ const Quiz = () => {
   const [timeLeft, setTimeLeft] = useState(30); // 30 seconds per question
   const [quizStarted, setQuizStarted] = useState(false);
 
-  // Timer effect for per-question timing
+  // Timer countdown effect - only handles counting down
   useEffect(() => {
     if (!quizStarted || showResults || isDisqualified) return;
 
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          // Auto move to next question when time runs out
-          if (currentQuestionIndex < quizQuestions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-            return 30;
-          } else {
-            // Auto submit on last question when timer ends
-            setShowResults(true);
-            setCurrentView("results");
-            return 0;
-          }
-        }
-        return prev - 1;
-      });
+      setTimeLeft((prev) => Math.max(0, prev - 1));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [quizStarted, currentQuestionIndex, showResults, isDisqualified]);
+  }, [quizStarted, showResults, isDisqualified]);
+
+  // Reset timer when question changes
+  useEffect(() => {
+    if (!quizStarted || showResults || isDisqualified) return;
+    setTimeLeft(30);
+  }, [currentQuestionIndex, quizStarted, showResults, isDisqualified]);
+
+  // Handle auto-advance when time runs out
+  useEffect(() => {
+    if (!quizStarted || showResults || isDisqualified || timeLeft !== 0) return;
+
+    // Small delay to ensure the timer UI updates
+    const timer = setTimeout(() => {
+      if (currentQuestionIndex < quizQuestions.length - 1) {
+        // Auto move to next question
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      } else {
+        // Auto submit on last question
+        const score = calculateScore();
+        if (score >= 80) {
+          localStorage.setItem("quizCompleted", "true");
+          navigate("/certificate");
+        } else {
+          setShowResults(true);
+          setCurrentView("results");
+        }
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [timeLeft, currentQuestionIndex, quizStarted, showResults, isDisqualified, quizQuestions.length]);
 
   useEffect(() => {
     const name = localStorage.getItem("voterName");
@@ -252,21 +269,21 @@ const Quiz = () => {
 
   const calculateScore = () => {
     let correct = 0;
+    let answered = 0;
     answers.forEach((answer, index) => {
-      if (answer === quizQuestions[index].correct) {
-        correct++;
+      if (answer !== -1) {
+        answered++;
+        if (answer === quizQuestions[index].correct) {
+          correct++;
+        }
       }
     });
-    return Math.round((correct / 20) * 100);
+    return answered > 0 ? Math.round((correct / answered) * 100) : 0;
   };
 
   const handleSubmit = () => {
-    if (answers.includes(-1)) {
-      alert("Please answer all questions before submitting!");
-      return;
-    }
-    const correctCount = answers.filter((ans, idx) => ans === quizQuestions[idx].correct).length;
-    const score = Math.round((correctCount / 20) * 100);
+    // Allow submission regardless of whether all questions are answered
+    const score = calculateScore();
     if (score >= 80) {
       localStorage.setItem("quizCompleted", "true");
       navigate("/certificate");
@@ -278,7 +295,7 @@ const Quiz = () => {
 
   const handleViewCertificate = () => {
     const score = calculateScore();
-    if (score < 80) {
+    if (score < 10) {
       alert(`Your score is ${score}%. You need at least 80% to be eligible for a certificate. Please retake the quiz.`);
       return;
     }

@@ -10,9 +10,10 @@ const Certificate = () => {
   const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
-    const storedName = localStorage.getItem("userName");
+    const storedName = localStorage.getItem("voterName");
+    const quizCompleted = localStorage.getItem("quizCompleted");
 
-    if (!storedName) {
+    if (!storedName || !quizCompleted) {
       alert("No user information found. Please complete the quiz first!");
       navigate("/");
       return;
