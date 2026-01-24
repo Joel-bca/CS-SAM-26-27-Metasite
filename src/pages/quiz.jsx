@@ -179,17 +179,38 @@ const Quiz = () => {
     }
     setVoterName(name);
 
-    // Only restore answers if quiz was already in progress
+    // Always start with blank answers for new attempts
+    // Only restore if quiz was explicitly marked as in progress
     const quizInProgress = localStorage.getItem("quizInProgress");
     if (quizInProgress === "true") {
       const savedAnswers = localStorage.getItem("quizAnswers");
       if (savedAnswers) {
-        setAnswers(JSON.parse(savedAnswers));
+        try {
+          const parsedAnswers = JSON.parse(savedAnswers);
+          // Validate that all answers are valid (between -1 and 3)
+          const isValid = parsedAnswers.every(ans => ans >= -1 && ans <= 3);
+          if (isValid && parsedAnswers.length === 20) {
+            setAnswers(parsedAnswers);
+          } else {
+            // Invalid data, start fresh
+            setAnswers(Array(20).fill(-1));
+            localStorage.setItem("quizAnswers", JSON.stringify(Array(20).fill(-1)));
+          }
+        } catch (e) {
+          // Parse error, start fresh
+          setAnswers(Array(20).fill(-1));
+          localStorage.setItem("quizAnswers", JSON.stringify(Array(20).fill(-1)));
+        }
+      } else {
+        // No saved answers, start fresh
+        setAnswers(Array(20).fill(-1));
+        localStorage.setItem("quizAnswers", JSON.stringify(Array(20).fill(-1)));
       }
     } else {
       // Start fresh quiz with all blank answers
       setAnswers(Array(20).fill(-1));
       localStorage.setItem("quizAnswers", JSON.stringify(Array(20).fill(-1)));
+      localStorage.removeItem("quizInProgress");
     }
 
     // Check if student was already disqualified
@@ -244,8 +265,15 @@ const Quiz = () => {
       alert("Please answer all questions before submitting!");
       return;
     }
-    setShowResults(true);
-    setCurrentView("results");
+    const correctCount = answers.filter((ans, idx) => ans === quizQuestions[idx].correct).length;
+    const score = Math.round((correctCount / 20) * 100);
+    if (score >= 80) {
+      localStorage.setItem("quizCompleted", "true");
+      navigate("/certificate");
+    } else {
+      setShowResults(true);
+      setCurrentView("results");
+    }
   };
 
   const handleViewCertificate = () => {

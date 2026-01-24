@@ -4,41 +4,62 @@ import { FaShieldAlt, FaHome } from 'react-icons/fa';
 import AntiCheatService from '../services/AntiCheatService';
 
 const DisqualificationScreen = ({ handleGoHome }) => {
+  const violations = AntiCheatService.getViolations();
+  
   return (
     <motion.div
-      className="quiz-page"
+      className="disqualification-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="disqualification-screen">
+      <div className="disqualification-header">
+        <h1>Assessment Status</h1>
+      </div>
+
+      <div className="disqualification-container">
         <motion.div
-          className="disqualification-content"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+          className="disqualification-card"
+          initial={{ scale: 0.8, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <FaShieldAlt className="disqualification-icon" />
-          <h1>❌ Disqualified</h1>
-          <p>Your exam has been terminated due to violation of exam integrity rules.</p>
-
-          <div className="violation-details">
-            <h3>Violations Detected:</h3>
-            <ul>
-              {AntiCheatService.getViolations().map((v, idx) => (
-                <li key={idx}>
-                  🚫 {v.type} - {new Date(v.timestamp).toLocaleTimeString()}
-                </li>
-              ))}
-            </ul>
+          <div className="status-badge disqualified">
+            <FaShieldAlt className="status-icon" />
+            <span>Disqualified</span>
           </div>
 
-          <p className="disqualification-message">
-            Please contact the exam administrator for more information.
-          </p>
+          <div className="status-message">
+            <h2>Assessment Terminated</h2>
+            <p>Your assessment has been terminated due to violation of exam integrity policies.</p>
+          </div>
+
+          {violations && violations.length > 0 && (
+            <div className="violations-box">
+              <h3>Violations Detected</h3>
+              <div className="violations-list">
+                {violations.map((v, idx) => (
+                  <motion.div
+                    key={idx}
+                    className="violation-item"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + idx * 0.1 }}
+                  >
+                    <span className="violation-type">{v.type}</span>
+                    <span className="violation-time">{new Date(v.timestamp).toLocaleTimeString()}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="status-footer">
+            <p>For more information, please contact the exam administrator.</p>
+          </div>
 
           <motion.button
-            className="btn btn-primary"
+            className="btn btn-home"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleGoHome}

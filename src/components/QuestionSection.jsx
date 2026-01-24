@@ -34,6 +34,7 @@ const QuestionSection = ({ currentQuestion, answers, currentQuestionIndex, handl
               onChange={() => handleOptionClick(optionIndex)}
               className="option-radio"
               onClick={(e) => e.stopPropagation()}
+              value={optionIndex}
             />
             <label 
               htmlFor={`option-${optionIndex}`} 

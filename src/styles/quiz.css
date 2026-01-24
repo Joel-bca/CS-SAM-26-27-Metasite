@@ -1596,6 +1596,41 @@
     height: 4px;
   }
 
+  .disqualification-card {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .disqualification-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .status-message h2 {
+    font-size: 1.2rem;
+  }
+
+  .status-message p {
+    font-size: 0.85rem;
+  }
+
+  .violation-item {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .violation-time {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+
+  .status-footer {
+    padding: 12px;
+  }
+
+  .status-footer p {
+    font-size: 0.85rem;
+  }
+
   .disqualification-screen {
     min-height: 100vh;
   }
@@ -1732,80 +1767,226 @@
   .disqualification-content h1 {
     font-size: 1.5rem;
   }
+
+  .disqualification-card {
+    padding: 25px;
+    gap: 20px;
+  }
+
+  .status-badge {
+    font-size: 0.95rem;
+    padding: 12px 20px;
+  }
+
+  .status-message h2 {
+    font-size: 1.4rem;
+  }
+
+  .status-message p {
+    font-size: 0.9rem;
+  }
+
+  .violations-box {
+    padding: 15px;
+  }
+
+  .violations-box h3 {
+    font-size: 0.95rem;
+  }
+
+  .violation-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .violation-time {
+    width: 100%;
+  }
+
+  .btn-home {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 20px;
+    font-size: 0.9rem;
+  }
+
+  .disqualification-header h1 {
+    font-size: 1.6rem;
+  }
 }
 
 /* Disqualification Screen */
-.disqualification-screen {
+.disqualification-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f4f7fb 0%, #e8f0f7 100%);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.disqualification-content {
+.disqualification-header {
   background: white;
-  padding: 60px 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(220, 53, 69, 0.2);
-  max-width: 600px;
+  padding: 20px 30px;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 58, 143, 0.08);
+  flex-shrink: 0;
 }
 
-.disqualification-icon {
-  font-size: 80px;
-  color: #dc3545;
-  margin-bottom: 20px;
-}
-
-.disqualification-content h1 {
-  font-size: 2.5rem;
-  color: #dc3545;
-  margin-bottom: 15px;
+.disqualification-header h1 {
+  font-size: 2rem;
+  color: #003a8f;
+  margin: 0;
   font-weight: 700;
 }
 
-.disqualification-content p {
+.disqualification-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  overflow-y: auto;
+}
+
+.disqualification-card {
+  width: 100%;
+  max-width: 700px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  width: fit-content;
+  margin: 0 auto;
+  font-weight: 600;
   font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 30px;
+}
+
+.status-badge.disqualified {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  color: #d32f2f;
+  border: 2px solid #d32f2f;
+}
+
+.status-icon {
+  font-size: 1.5rem;
+}
+
+.status-message {
+  text-align: center;
+}
+
+.status-message h2 {
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  margin: 0 0 15px 0;
+  font-weight: 600;
+}
+
+.status-message p {
+  font-size: 1rem;
+  color: #555;
   line-height: 1.6;
+  margin: 0;
 }
 
-.violation-details {
-  background: #fff3cd;
+.violations-box {
+  background: linear-gradient(135deg, #f0f5ff 0%, #f0f9ff 100%);
+  border: 2px solid #003a8f;
+  border-radius: 10px;
   padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 30px;
-  border-left: 5px solid #ffc107;
-  text-align: left;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
 }
 
-.violation-details h3 {
-  color: #856404;
-  margin-bottom: 15px;
+.violations-box h3 {
+  color: #003a8f;
   font-size: 1.1rem;
+  margin: 0 0 12px 0;
+  font-weight: 600;
 }
 
-.violation-details ul {
-  list-style: none;
-  padding: 0;
+.violations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.violation-details li {
-  color: #856404;
-  padding: 8px 0;
+.violation-item {
+  background: white;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border-left: 4px solid #d32f2f;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.violation-type {
+  color: #1a1a1a;
+  font-weight: 500;
+  flex: 1;
+}
+
+.violation-time {
+  color: #888;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  background: #f8f9fa;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.status-footer {
+  text-align: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.status-footer p {
+  color: #666;
   font-size: 0.95rem;
-  border-bottom: 1px solid rgba(133, 100, 4, 0.2);
+  margin: 0;
+  line-height: 1.5;
 }
 
-.violation-details li:last-child {
-  border-bottom: none;
+.btn-home {
+  background: linear-gradient(135deg, #003a8f 0%, #0055d4 100%);
+  color: white;
+  align-self: center;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
 }
 
-.disqualification-message {
-  color: #6c757d;
-  font-style: italic;
-  margin-bottom: 30px !important;
+.btn-home:hover {
+  box-shadow: 0 6px 20px rgba(0, 58, 143, 0.3);
+}
+
+.btn-home:active {
+  transform: scale(0.95);
 }
 
 /* Quiz Start Screen */
