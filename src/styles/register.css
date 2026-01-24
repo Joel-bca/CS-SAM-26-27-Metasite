@@ -932,8 +932,10 @@ body {
 /* Footer */
 .footer {
   text-align: center;
-  padding: 5px 10px;
-  font-size: 11px;
-  color: #666;
+  padding: 15px 20px;
+  font-size: 14px;
+  color: #333;
+  border-top: 1px solid #e0e0e0;
   margin-top: auto;
+  font-weight: 500;
 }

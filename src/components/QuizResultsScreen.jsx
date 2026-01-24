@@ -93,6 +93,11 @@ const QuizResultsScreen = ({
           <FaHome /> Go Home
         </motion.button>
       </div>
+
+      <div className="footer">
+        Developed by Paul Joel P [2 BCA B] | Shalini Alamleu S V [2 BCA B]
+    
+      </div>
     </motion.div>
   );
 };

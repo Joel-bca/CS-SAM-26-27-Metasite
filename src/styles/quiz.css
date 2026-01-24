@@ -9,7 +9,8 @@
 }
 
 .results-page {
-  overflow-y: auto;
+  overflow: hidden;
+  height: 100vh;
 }
 
 /* Top Bar */
@@ -2231,6 +2232,17 @@
   background: #5a6268;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 15px 20px;
+  font-size: 14px;
+  color: #333;
+  border-top: 1px solid #e0e0e0;
+  margin-top: auto;
+  font-weight: 500;
 }
 
 /* Responsive Results Page */
