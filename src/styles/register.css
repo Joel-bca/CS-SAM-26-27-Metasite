@@ -1,7 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background: #f4f7fb;
+  background: linear-gradient(135deg, #f4f7fb 0%, #e8f0f7 100%);
 }
 
 .register-page {
@@ -9,65 +13,436 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
+}
+
+.certificate-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f4f7fb 0%, #e8f0f7 100%);
 }
 
 .header {
-  background: #003a8f;
+  background: linear-gradient(135deg, #003a8f 0%, #002a5c 100%);
   color: white;
   width: 100%;
-  padding: 20px;
+  padding: 40px 20px;
   text-align: center;
+  margin: -20px -20px 0 -20px;
+  box-shadow: 0 4px 15px rgba(0, 58, 143, 0.2);
+}
+
+.header h1 {
+  margin: 15px 0 5px 0;
+  font-size: 32px;
+}
+
+.header p {
+  margin: 0;
+  opacity: 0.9;
 }
 
 .logo {
-  height: 60px;
-  margin-bottom: 10px;
+  height: 200px;
+  margin-bottom: 1px;
 }
 
+/* Progress Indicator */
+.progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin: 40px 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.progress-step.active {
+  opacity: 1;
+}
+
+.step-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  border: 3px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-circle {
+  background: #1a9c4b;
+  border-color: #1a9c4b;
+  color: white;
+  box-shadow: 0 4px 12px rgba(26, 156, 75, 0.3);
+}
+
+.progress-step p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.progress-line {
+  width: 40px;
+  height: 3px;
+  background: #e0e0e0;
+  transition: background 0.3s ease;
+}
+
+.progress-line.active {
+  background: #1a9c4b;
+}
+
+/* Form Card */
 .form-card {
   background: white;
-  margin-top: -40px;
-  padding: 30px;
-  width: 380px;
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  margin-bottom: 40px;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .form-card h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin: 0 0 5px 0;
   color: #003a8f;
+  font-size: 24px;
+}
+
+.step-subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 25px 0;
 }
 
 .input-group {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 15px;
+  border: 2px solid #e0e0e0;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  background: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.input-group:focus-within {
+  border-color: #1a9c4b;
+  background: white;
+  box-shadow: 0 4px 12px rgba(26, 156, 75, 0.1);
 }
 
 .icon {
-  margin-right: 10px;
+  margin-right: 12px;
   color: #003a8f;
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
-.input-group input {
+.input-group input,
+.input-group select,
+.input-group label {
   border: none;
   outline: none;
   width: 100%;
   font-size: 15px;
+  background: transparent;
+  color: #333;
+  font-family: inherit;
 }
 
+.input-group input::placeholder,
+.input-group select::placeholder {
+  color: #999;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  width: 100%;
+}
+
+.input-group input[type="date"],
+.input-group select {
+  padding: 8px;
+  background: white;
+}
+
+.error-text {
+  color: #d32f2f;
+  font-size: 13px;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Buttons */
+.next-button,
 .go-quiz-box {
   margin-top: 20px;
   background: #1a9c4b;
   color: white;
   text-align: center;
-  padding: 12px;
-  font-weight: bold;
-  border-radius: 6px;
+  padding: 14px;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
   user-select: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.next-button:hover,
+.go-quiz-box:hover {
+  background: #158a3f;
+  box-shadow: 0 6px 20px rgba(26, 156, 75, 0.3);
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: #1a9c4b;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #158a3f;
+  box-shadow: 0 6px 20px rgba(26, 156, 75, 0.3);
+}
+
+.btn-secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #d0d0d0;
+}
+
+/* Certificate Page */
+.certificate-header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #003a8f;
+}
+
+.certificate-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 36px;
+}
+
+.certificate-header p {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+.certificate-container {
+  background: #fff8f0;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16 / 10.67;
+  border-radius: 12px;
+  position: relative;
+  padding: 60px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.cert-border-outer {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 4px solid #d4af37;
+  border-radius: 8px;
+}
+
+.cert-border-inner {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  border: 2px solid #d4af37;
+  border-radius: 4px;
+}
+
+.cert-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.cert-title {
+  margin: 0;
+  font-size: 42px;
+  color: #003a8f;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.cert-subtitle {
+  margin: 5px 0 20px 0;
+  font-size: 20px;
+  color: #333;
+  font-style: italic;
+}
+
+.cert-text {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.cert-name {
+  margin: 5px 0 20px 0;
+  font-size: 36px;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+.cert-details {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.cert-details p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.cert-id {
+  font-size: 12px;
+  color: #999;
+  margin-top: 15px;
+}
+
+.cert-footer {
+  margin: 10px 0 0 0;
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+.certificate-actions {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.certificate-actions .btn {
+  flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 30px 20px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .form-card {
+    padding: 25px;
+    max-width: 100%;
+  }
+
+  .progress-container {
+    gap: 15px;
+  }
+
+  .progress-line {
+    width: 20px;
+  }
+
+  .certificate-container {
+    padding: 30px;
+    aspect-ratio: auto;
+    min-height: 500px;
+  }
+
+  .cert-title {
+    font-size: 28px;
+  }
+
+  .cert-name {
+    font-size: 24px;
+  }
+
+  .certificate-actions {
+    flex-direction: column;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
 }

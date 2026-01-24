@@ -1,0 +1,261 @@
+/* Certificate Page Styles */
+.certificate-wrapper {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: slideDown 0.6s ease-out;
+}
+
+.certificate-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.certificate-header h1 {
+  font-size: 2.5rem;
+  color: #003a8f;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.certificate-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.certificate-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #f8fafb 0%, #e8eff7 100%);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 58, 143, 0.2);
+  overflow: hidden;
+  animation: scaleIn 0.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Certificate Background Image */
+.certificate-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.95;
+}
+
+/* Logos Header */
+.logos-header {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 40px;
+  z-index: 15;
+  gap: 30px;
+}
+
+.logo-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.cert-logo {
+  max-height: 80px;
+  max-width: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.main-logo {
+  max-width: 100px;
+}
+
+.association-logo {
+  max-width: 110px;
+}
+
+.certificate-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Name placement */
+.name-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  text-align: center;
+  z-index: 20;
+}
+
+.participant-name {
+  font-family: "Georgia", serif;
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 700;
+  color: #003a8f;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  font-style: italic;
+}
+
+/* Certificate actions */
+.certificate-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  animation: slideUp 0.6s ease-out 0.3s both;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #003a8f 0%, #0055d4 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(0, 58, 143, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Status message */
+.status-message {
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  animation: slideUp 0.6s ease-out 0.4s both;
+}
+
+.status-message.success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.status-message.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .certificate-header h1 {
+    font-size: 2rem;
+  }
+
+  .certificate-header p {
+    font-size: 1rem;
+  }
+
+  .name-container {
+    width: 55%;
+    top: 40%;
+  }
+
+  .certificate-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .certificate-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .name-container {
+    width: 65%;
+  }
+
+  .participant-name {
+    font-size: 18px;
+  }
+}
