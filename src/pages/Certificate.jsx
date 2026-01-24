@@ -1,68 +1,60 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaDownload, FaHome } from "react-icons/fa";
+import { FaDownload, FaHome, FaFilePdf } from "react-icons/fa";
+import jsPDF from "jspdf";
 import "../styles/certificate.css";
 
 const Certificate = () => {
   const navigate = useNavigate();
+  const certRef = useRef(null);
   const [userName, setUserName] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
-    const storedName = localStorage.getItem("voterName");
-    const quizCompleted = localStorage.getItem("quizCompleted");
-
-    if (!storedName || !quizCompleted) {
-      alert("No user information found. Please complete the quiz first!");
+    const name = localStorage.getItem("voterName");
+    if (!name) {
+      alert("No user information found. Please register first.");
       navigate("/");
       return;
     }
-
-    setUserName(storedName);
+    setUserName(name);
   }, [navigate]);
 
   const loadHtml2Canvas = () => {
     return new Promise((resolve) => {
-      if (window.html2canvas) {
-        resolve();
-        return;
-      }
-
+      if (window.html2canvas) return resolve();
       const script = document.createElement("script");
-      script.src =
-        "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
       script.onload = resolve;
       document.body.appendChild(script);
     });
   };
 
-  const downloadCertificate = async () => {
-    if (!userName) {
-      alert("User name missing. Cannot generate certificate.");
-      return;
-    }
-
+  const downloadPDF = async () => {
     setIsDownloading(true);
-
     try {
       await loadHtml2Canvas();
+      const element = certRef.current;
 
-      const certificate = document.querySelector(".certificate-container");
-
-      const canvas = await window.html2canvas(certificate, {
-        scale: 3,
+      const canvas = await window.html2canvas(element, {
+        scale: 3, // High resolution
         useCORS: true,
-        backgroundColor: null,
+        backgroundColor: "#ffffff",
       });
 
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
-      link.download = `Certificate_${userName.replace(/\s+/g, "_")}.png`;
-      link.click();
+      const imgData = canvas.toDataURL("image/png");
+      
+      // Initialize jsPDF: Landscape ('l'), millimeters ('mm'), A4 size
+      const pdf = new jsPDF("l", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`Certificate_${userName.replace(/\s+/g, "_")}.pdf`);
     } catch (err) {
       console.error(err);
-      alert("Failed to download certificate. Please try again.");
+      alert("Failed to generate PDF.");
     } finally {
       setIsDownloading(false);
     }
@@ -73,67 +65,36 @@ const Certificate = () => {
     navigate("/");
   };
 
-  if (!userName) {
-    return (
-      <div className="center-screen">
-        <p>Loading certificate...</p>
-      </div>
-    );
-  }
+  if (!userName) return <p className="loading-text">Loading certificate…</p>;
 
   return (
-    <motion.div
-      className="certificate-wrapper"
-      initial={{ opacity: 0 }}
+    <motion.div 
+      className="page-wrapper"
+      initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
     >
-      <div className="certificate-header">
-        <h1>Certificate of Achievement</h1>
-        <p>Quiz Completion</p>
+      <div className="certificate-viewport">
+        <div className="certificate-container" ref={certRef}>
+          {/* Main Background Image */}
+          <img
+            src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/c6ee7d3d447d533b8662ad96ee3c445623ca7467/IMG-20260124-WA0014.jpg"
+            className="certificate-background"
+            alt="Certificate Background"
+          />
+          
+          <div className="name-container">
+            <div className="participant-name">{userName}</div>
+          </div>
+        </div>
       </div>
 
-      <motion.div
-        className="certificate-container"
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-      >
-        {/* Logos */}
-        <div className="logos-header">
-          <img src="/christ-logo.png" className="cert-logo main-logo" />
-          <img src="/logo-samagra.png" className="cert-logo association-logo" />
-        </div>
-
-        {/* Background */}
-        <img
-          src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/cec08b7c1e1ea72d3a62ca1530a4a4e4b8766890/certificate%20votersday.png"
-          className="certificate-background"
-          alt="Certificate"
-        />
-
-        {/* USER NAME */}
-        <div className="name-container">
-          <div className="participant-name">{userName}</div>
-        </div>
-      </motion.div>
-
       <div className="certificate-actions">
-        <button
-          className="btn btn-primary"
-          onClick={downloadCertificate}
-          disabled={isDownloading}
-        >
-          <FaDownload />
-          {isDownloading ? "Generating..." : "Download Certificate"}
+        <button className="btn btn-primary" onClick={downloadPDF} disabled={isDownloading}>
+          <FaFilePdf /> {isDownloading ? "Generating PDF..." : "Download PDF"}
         </button>
-
         <button className="btn btn-secondary" onClick={goHome}>
           <FaHome /> Home
         </button>
-      </div>
-
-      <div className="status-message success">
-        🎉 Certificate generated successfully!
       </div>
     </motion.div>
   );

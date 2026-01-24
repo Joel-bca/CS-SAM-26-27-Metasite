@@ -60,10 +60,10 @@ const QuizResultsScreen = ({
         </div>
 
         <div className="performance-message">
-          {score >= 80 && <p>🎉 Excellent Performance! You're eligible for a certificate!</p>}
-          {score >= 60 && score < 80 && <p>👏 Great Job! You need 80% for a certificate. Please retake to improve!</p>}
-          {score >= 40 && score < 60 && <p>📚 Good Effort! Retake the quiz to reach 80% for certificate eligibility!</p>}
-          {score < 40 && <p>💡 Keep Trying! Review and retake the quiz to achieve 80%!</p>}
+          {score >= 80 && <p> Excellent Performance! You're eligible for a certificate!</p>}
+          {score >= 60 && score < 80 && <p> Great Job! You need 80% for a certificate. Please retake to improve!</p>}
+          {score >= 40 && score < 60 && <p> Good Effort! Retake the quiz to reach 80% for certificate eligibility!</p>}
+          {score < 40 && <p> Keep Trying! Review and retake the quiz to achieve 80%!</p>}
         </div>
       </motion.div>
 

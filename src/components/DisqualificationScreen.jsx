@@ -34,26 +34,6 @@ const DisqualificationScreen = ({ handleGoHome }) => {
             <p>Your assessment has been terminated due to violation of exam integrity policies.</p>
           </div>
 
-          {violations && violations.length > 0 && (
-            <div className="violations-box">
-              <h3>Violations Detected</h3>
-              <div className="violations-list">
-                {violations.map((v, idx) => (
-                  <motion.div
-                    key={idx}
-                    className="violation-item"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 + idx * 0.1 }}
-                  >
-                    <span className="violation-type">{v.type}</span>
-                    <span className="violation-time">{new Date(v.timestamp).toLocaleTimeString()}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          )}
-
           <div className="status-footer">
             <p>For more information, please contact the exam administrator.</p>
           </div>
