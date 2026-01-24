@@ -17,7 +17,6 @@ const RegistrationForm = ({ name, regNo, error, onNameChange, onRegNoChange, onS
     >
       <div className="header">
         <img src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/9f7c2746ec4ea940c7d622fcb4ab477379765386/chirst_logo.png" alt="Christ Logo" className="logo" />
-        <img src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/e4aa9319c4495b8c812a442237f306132c569782/samagra_logo-removebg-preview.png" alt="Samagra_logo" className="logo-samagra" />
         <h1>National Voters' Day Quiz</h1>
         <p>Christ University – Yeshwanthpur Campus</p>
       </div>
