@@ -41,7 +41,6 @@ const Quiz = () => {
   const [quizStarted, setQuizStarted] = useState(false);
   const timerRef = useRef(null);
 
-  // --- SCORE CALCULATION ---
   const calculateScore = (currentAnswers) => {
     let correct = 0;
     currentAnswers.forEach((answer, index) => {
@@ -52,27 +51,21 @@ const Quiz = () => {
     return Math.round((correct / quizQuestions.length) * 100);
   };
 
-  // --- SUBMIT LOGIC (FIXED: ALWAYS GOES TO RESULTS FIRST) ---
   const submitQuiz = () => {
     if (timerRef.current) clearInterval(timerRef.current);
-    
     const finalScore = calculateScore(answers);
     
-    // Save the score and status
     localStorage.setItem("quizScore", finalScore.toString());
     if (finalScore >= 80) {
       localStorage.setItem("quizCompleted", "true");
     }
 
-    // Always transition to results screen
     setShowResults(true);
     setCurrentView("results");
   };
 
-  // 1. Timer Logic
   useEffect(() => {
     if (!quizStarted || showResults || isDisqualified) return;
-
     setTimeLeft(30);
     timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
@@ -83,11 +76,9 @@ const Quiz = () => {
         return prev - 1;
       });
     }, 1000);
-
     return () => clearInterval(timerRef.current);
   }, [currentQuestionIndex, quizStarted, showResults, isDisqualified]);
 
-  // 2. Auto-advance/submit on timeout
   useEffect(() => {
     if (timeLeft === 0 && quizStarted && !showResults) {
       if (currentQuestionIndex < quizQuestions.length - 1) {
@@ -98,7 +89,6 @@ const Quiz = () => {
     }
   }, [timeLeft]);
 
-  // 3. Mount Logic
   useEffect(() => {
     const name = localStorage.getItem("voterName");
     if (!name) {
@@ -117,13 +107,11 @@ const Quiz = () => {
     }
 
     if (AntiCheatService.isStudentDisqualified()) setIsDisqualified(true);
-
     const handleDisq = () => setIsDisqualified(true);
     window.addEventListener("studentDisqualified", handleDisq);
     return () => window.removeEventListener("studentDisqualified", handleDisq);
   }, [navigate]);
 
-  // 4. Interaction Handlers
   const handleAnswerChange = (questionIndex, optionIndex) => {
     const newAnswers = [...answers];
     newAnswers[questionIndex] = optionIndex;
@@ -152,57 +140,44 @@ const Quiz = () => {
     navigate("/");
   };
 
-  // 5. Handling Certificate from Results Screen
   const handleViewCertificate = () => {
     const score = calculateScore(answers);
     if (score >= 80) {
       navigate("/certificate");
     } else {
-      alert(`Your score is ${score}%. You need at least 80% to be eligible for a certificate. Please retake the quiz.`);
+      alert(`Your score is ${score}%. You need at least 80% to be eligible for a certificate.`);
     }
   };
 
-  // --- RENDERING LOGIC ---
-
-  if (isDisqualified) return (
-    <div className="page-container">
-      <DisqualificationScreen handleGoHome={handleGoHome} />
-      <Footer />
-    </div>
-  );
+  if (isDisqualified) return <DisqualificationScreen handleGoHome={handleGoHome} />;
 
   if (showResults && currentView === "results") {
     const score = calculateScore(answers);
     const correctCount = answers.filter((ans, idx) => ans === quizQuestions[idx].correct).length;
     return (
-      <div className="page-container">
-        <QuizResultsScreen
-          score={score}
-          correctCount={correctCount}
-          quizQuestions={quizQuestions}
-          answers={answers}
-          handleViewCertificate={handleViewCertificate}
-          handleRetakeQuiz={handleRetakeQuiz}
-          handleGoHome={handleGoHome}
-        />
-        <Footer />
-      </div>
+      <QuizResultsScreen
+        score={score}
+        correctCount={correctCount}
+        quizQuestions={quizQuestions}
+        answers={answers}
+        handleViewCertificate={handleViewCertificate}
+        handleRetakeQuiz={handleRetakeQuiz}
+        handleGoHome={handleGoHome}
+      />
     );
   }
 
   return (
-    <div className="page-container">
-      <QuizQuestionScreen
-        voterName={voterName}
-        currentQuestionIndex={currentQuestionIndex}
-        quizQuestions={quizQuestions}
-        answers={answers}
-        timeLeft={timeLeft}
-        handleAnswerChange={handleAnswerChange}
-        moveToNextQuestion={moveToNextQuestion}
-        handleSubmit={submitQuiz}
-      />
-    </div>
+    <QuizQuestionScreen
+      voterName={voterName}
+      currentQuestionIndex={currentQuestionIndex}
+      quizQuestions={quizQuestions}
+      answers={answers}
+      timeLeft={timeLeft}
+      handleAnswerChange={handleAnswerChange}
+      moveToNextQuestion={moveToNextQuestion}
+      handleSubmit={submitQuiz}
+    />
   );
 };
 
