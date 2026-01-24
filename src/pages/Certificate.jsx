@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaDownload, FaHome, FaFilePdf } from "react-icons/fa";
+import { FaFilePdf, FaHome } from "react-icons/fa";
 import jsPDF from "jspdf";
 import "../styles/certificate.css";
 
@@ -38,14 +38,13 @@ const Certificate = () => {
       const element = certRef.current;
 
       const canvas = await window.html2canvas(element, {
-        scale: 3, // High resolution
+        scale: 3, // Maintains high quality for PDF
         useCORS: true,
+        logging: false,
         backgroundColor: "#ffffff",
       });
 
       const imgData = canvas.toDataURL("image/png");
-      
-      // Initialize jsPDF: Landscape ('l'), millimeters ('mm'), A4 size
       const pdf = new jsPDF("l", "mm", "a4");
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -60,43 +59,33 @@ const Certificate = () => {
     }
   };
 
-  const goHome = () => {
-    localStorage.clear();
-    navigate("/");
-  };
-
-  if (!userName) return <p className="loading-text">Loading certificate…</p>;
-
   return (
-    <motion.div 
-      className="page-wrapper"
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }}
-    >
-      <div className="certificate-viewport">
-        <div className="certificate-container" ref={certRef}>
-          {/* Main Background Image */}
-          <img
-            src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/c6ee7d3d447d533b8662ad96ee3c445623ca7467/IMG-20260124-WA0014.jpg"
-            className="certificate-background"
-            alt="Certificate Background"
-          />
-          
-          <div className="name-container">
-            <div className="participant-name">{userName}</div>
+    <div className="page-container">
+      <div className="certificate-view-area">
+        {/* The Scaler div is the secret to fixing the "big" preview */}
+        <div className="certificate-scaler">
+          <div className="certificate-container" ref={certRef}>
+            <img
+              src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/c6ee7d3d447d533b8662ad96ee3c445623ca7467/IMG-20260124-WA0014.jpg"
+              className="certificate-background"
+              alt="Background"
+            />
+            <div className="name-overlay">
+              <h1 className="participant-name">{userName}</h1>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="certificate-actions">
-        <button className="btn btn-primary" onClick={downloadPDF} disabled={isDownloading}>
-          <FaFilePdf /> {isDownloading ? "Generating PDF..." : "Download PDF"}
+      <div className="action-bar">
+        <button className="btn-pdf" onClick={downloadPDF} disabled={isDownloading}>
+          <FaFilePdf /> {isDownloading ? "Generating..." : "Download PDF"}
         </button>
-        <button className="btn btn-secondary" onClick={goHome}>
+        <button className="btn-home" onClick={() => navigate("/")}>
           <FaHome /> Home
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
