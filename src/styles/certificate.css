@@ -7,6 +7,7 @@
   width: 100vw;
   background-color: #f5f5f5;
   overflow: hidden; /* Prevents whole-page scrolling */
+  padding-bottom: 60px;
 }
 
 /* Scrollable/Scaling Preview Area */

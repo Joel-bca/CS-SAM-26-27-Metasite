@@ -4,6 +4,7 @@ import AntiCheatService from "../services/AntiCheatService";
 import QuizQuestionScreen from "../components/QuizQuestionScreen";
 import QuizResultsScreen from "../components/QuizResultsScreen";
 import DisqualificationScreen from "../components/DisqualificationScreen";
+import Footer from "../components/Footer";
 import "../styles/quiz.css";
 
 const quizQuestions = [
@@ -164,35 +165,46 @@ const Quiz = () => {
     }
   };
 
-  if (isDisqualified) return <DisqualificationScreen handleGoHome={handleGoHome} />;
+  if (isDisqualified) return (
+    <>
+      <DisqualificationScreen handleGoHome={handleGoHome} />
+      <Footer />
+    </>
+  );
 
   if (showResults && currentView === "results") {
     const score = calculateScore(answers);
     const correctCount = answers.filter((ans, idx) => ans === quizQuestions[idx].correct).length;
     return (
-      <QuizResultsScreen
-        score={score}
-        correctCount={correctCount}
-        quizQuestions={quizQuestions}
-        answers={answers}
-        handleViewCertificate={handleViewCertificate}
-        handleRetakeQuiz={handleRetakeQuiz}
-        handleGoHome={handleGoHome}
-      />
+      <>
+        <QuizResultsScreen
+          score={score}
+          correctCount={correctCount}
+          quizQuestions={quizQuestions}
+          answers={answers}
+          handleViewCertificate={handleViewCertificate}
+          handleRetakeQuiz={handleRetakeQuiz}
+          handleGoHome={handleGoHome}
+        />
+        <Footer />
+      </>
     );
   }
 
   return (
-    <QuizQuestionScreen
-      voterName={voterName}
-      currentQuestionIndex={currentQuestionIndex}
-      quizQuestions={quizQuestions}
-      answers={answers}
-      timeLeft={timeLeft}
-      handleAnswerChange={handleAnswerChange}
-      moveToNextQuestion={moveToNextQuestion}
-      handleSubmit={submitQuiz}
-    />
+    <>
+      <QuizQuestionScreen
+        voterName={voterName}
+        currentQuestionIndex={currentQuestionIndex}
+        quizQuestions={quizQuestions}
+        answers={answers}
+        timeLeft={timeLeft}
+        handleAnswerChange={handleAnswerChange}
+        moveToNextQuestion={moveToNextQuestion}
+        handleSubmit={submitQuiz}
+      />
+      <Footer />
+    </>
   );
 };
 

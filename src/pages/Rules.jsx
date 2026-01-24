@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaCheckCircle, FaArrowRight } from "react-icons/fa";
+import Footer from "../components/Footer";
 import "../styles/rules.css";
 
 const Rules = () => {
@@ -31,12 +32,13 @@ const Rules = () => {
   };
 
   return (
-    <motion.div
-      className="rules-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
+    <>
+      <motion.div
+        className="rules-page"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
       <div className="rules-header">
         <img 
           src="https://raw.githubusercontent.com/Joel-bca/CS-SAM-26-27-Metasite/9f7c2746ec4ea940c7d622fcb4ab477379765386/chirst_logo.png" 
@@ -144,7 +146,9 @@ const Rules = () => {
         </div>
       </motion.div>
     </motion.div>
-  );
+    <Footer />
+  </>
+);
 };
 
 export default Rules;

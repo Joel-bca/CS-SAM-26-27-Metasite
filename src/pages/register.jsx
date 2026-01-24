@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RegistrationForm from "../components/RegistrationForm";
+import Footer from "../components/Footer";
 import AntiCheatService from "../services/AntiCheatService";
 
 const Register = () => {
@@ -31,15 +32,18 @@ const Register = () => {
   };
 
   return (
-    <RegistrationForm
-      name={name}
-      regNo={regNo}
-      error={error}
-      onNameChange={(e) => setName(e.target.value)}
-      onRegNoChange={(e) => setRegNo(e.target.value)}
-      onSubmit={handleGoToQuiz}
-      onKeyPress={(e) => e.key === "Enter" && handleGoToQuiz()}
-    />
+    <>
+      <RegistrationForm
+        name={name}
+        regNo={regNo}
+        error={error}
+        onNameChange={(e) => setName(e.target.value)}
+        onRegNoChange={(e) => setRegNo(e.target.value)}
+        onSubmit={handleGoToQuiz}
+        onKeyPress={(e) => e.key === "Enter" && handleGoToQuiz()}
+      />
+      <Footer />
+    </>
   );
 };
 

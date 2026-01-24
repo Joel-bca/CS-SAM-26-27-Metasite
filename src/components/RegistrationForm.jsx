@@ -69,11 +69,6 @@ const RegistrationForm = ({ name, regNo, error, onNameChange, onRegNoChange, onS
           <FaCheckCircle /> Start Quiz <FaArrowRight />
         </motion.div>
       </motion.div>
-
-      <div className="footer">
-        Developed by Paul Joel P [2 BCA B] | Shalini Alamleu S V [2 BCA B]
-    
-      </div>
     </motion.div>
   );
 };

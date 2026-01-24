@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaFilePdf, FaHome } from "react-icons/fa";
 import jsPDF from "jspdf";
+import Footer from "../components/Footer";
 import "../styles/certificate.css";
 
 const Certificate = () => {
@@ -60,7 +61,8 @@ const Certificate = () => {
   };
 
   return (
-    <div className="page-container">
+    <>
+      <div className="page-container">
       <div className="certificate-view-area">
         {/* The Scaler div is the secret to fixing the "big" preview */}
         <div className="certificate-scaler">
@@ -86,6 +88,8 @@ const Certificate = () => {
         </button>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

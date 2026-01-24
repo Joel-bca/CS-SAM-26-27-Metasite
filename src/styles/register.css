@@ -21,6 +21,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   padding: 0;
+  padding-bottom: 60px;
   overflow: hidden;
   background: linear-gradient(135deg, #f4f7fb 0%, #e8f0f7 100%);
 }
