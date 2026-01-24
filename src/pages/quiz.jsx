@@ -52,21 +52,21 @@ const Quiz = () => {
     return Math.round((correct / quizQuestions.length) * 100);
   };
 
-  // --- SUBMIT LOGIC ---
+  // --- SUBMIT LOGIC (FIXED: ALWAYS GOES TO RESULTS FIRST) ---
   const submitQuiz = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     
     const finalScore = calculateScore(answers);
     
-    // Redirect directly if they pass, otherwise show result messages
+    // Save the score and status
+    localStorage.setItem("quizScore", finalScore.toString());
     if (finalScore >= 80) {
       localStorage.setItem("quizCompleted", "true");
-      localStorage.setItem("quizScore", finalScore.toString());
-      navigate("/certificate");
-    } else {
-      setShowResults(true);
-      setCurrentView("results");
     }
+
+    // Always transition to results screen
+    setShowResults(true);
+    setCurrentView("results");
   };
 
   // 1. Timer Logic
@@ -156,26 +156,26 @@ const Quiz = () => {
   const handleViewCertificate = () => {
     const score = calculateScore(answers);
     if (score >= 80) {
-      localStorage.setItem("quizCompleted", "true");
-      localStorage.setItem("quizScore", score.toString());
       navigate("/certificate");
     } else {
       alert(`Your score is ${score}%. You need at least 80% to be eligible for a certificate. Please retake the quiz.`);
     }
   };
 
+  // --- RENDERING LOGIC ---
+
   if (isDisqualified) return (
-    <>
+    <div className="page-container">
       <DisqualificationScreen handleGoHome={handleGoHome} />
       <Footer />
-    </>
+    </div>
   );
 
   if (showResults && currentView === "results") {
     const score = calculateScore(answers);
     const correctCount = answers.filter((ans, idx) => ans === quizQuestions[idx].correct).length;
     return (
-      <>
+      <div className="page-container">
         <QuizResultsScreen
           score={score}
           correctCount={correctCount}
@@ -186,12 +186,12 @@ const Quiz = () => {
           handleGoHome={handleGoHome}
         />
         <Footer />
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="page-container">
       <QuizQuestionScreen
         voterName={voterName}
         currentQuestionIndex={currentQuestionIndex}
@@ -202,7 +202,7 @@ const Quiz = () => {
         moveToNextQuestion={moveToNextQuestion}
         handleSubmit={submitQuiz}
       />
-    </>
+    </div>
   );
 };
 

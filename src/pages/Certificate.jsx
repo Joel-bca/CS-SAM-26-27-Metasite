@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { FaFilePdf, FaHome } from "react-icons/fa";
 import jsPDF from "jspdf";
 import Footer from "../components/Footer";
@@ -11,15 +10,23 @@ const Certificate = () => {
   const certRef = useRef(null);
   const [userName, setUserName] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    const name = localStorage.getItem("voterName");
-    if (!name) {
-      alert("No user information found. Please register first.");
-      navigate("/");
-      return;
+    try {
+      const name = localStorage.getItem("voterName");
+      if (!name) {
+        console.error("No name found in localStorage");
+        setError(true);
+        // Optional: uncomment to auto-redirect
+        // setTimeout(() => navigate("/"), 3000);
+      } else {
+        setUserName(name);
+      }
+    } catch (err) {
+      console.error("Storage error:", err);
+      setError(true);
     }
-    setUserName(name);
   }, [navigate]);
 
   const loadHtml2Canvas = () => {
@@ -33,38 +40,46 @@ const Certificate = () => {
   };
 
   const downloadPDF = async () => {
+    if (!userName) return;
     setIsDownloading(true);
     try {
       await loadHtml2Canvas();
-      const element = certRef.current;
-
-      const canvas = await window.html2canvas(element, {
-        scale: 3, // Maintains high quality for PDF
+      const canvas = await window.html2canvas(certRef.current, {
+        scale: 2, 
         useCORS: true,
-        logging: false,
         backgroundColor: "#ffffff",
       });
 
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("l", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.addImage(imgData, "PNG", 0, 0, 297, 210);
       pdf.save(`Certificate_${userName.replace(/\s+/g, "_")}.pdf`);
     } catch (err) {
-      console.error(err);
       alert("Failed to generate PDF.");
     } finally {
       setIsDownloading(false);
     }
   };
 
+  // Error State View
+  if (error) {
+    return (
+      <div className="page-container" style={{justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
+        <h2>Oops! No user data found.</h2>
+        <p>Please complete the quiz first.</p>
+        <button className="btn-home" onClick={() => navigate("/")}>Go to Home</button>
+      </div>
+    );
+  }
+
+  // Loading State View
+  if (!userName) {
+    return <div className="page-container" style={{justifyContent: 'center', alignItems: 'center'}}>Loading Certificate...</div>;
+  }
+
   return (
-    <>
-      <div className="page-container">
+    <div className="page-container">
       <div className="certificate-view-area">
-        {/* The Scaler div is the secret to fixing the "big" preview */}
         <div className="certificate-scaler">
           <div className="certificate-container" ref={certRef}>
             <img
@@ -87,9 +102,8 @@ const Certificate = () => {
           <FaHome /> Home
         </button>
       </div>
+      <Footer />
     </div>
-    <Footer />
-    </>
   );
 };
 
