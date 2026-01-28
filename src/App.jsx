@@ -7,6 +7,7 @@ import Rules from './pages/Rules.jsx'
 import Quiz from './pages/quiz.jsx'
 import Certificate from './pages/Certificate.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +21,8 @@ function App() {
         <Route path="/certificate" element={<Certificate />} />
       </Routes>
     </Router>
+
+    <Analytics/>
   )
 }
 
