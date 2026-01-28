@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaFilePdf, FaHome } from "react-icons/fa";
 import jsPDF from "jspdf";
-import Footer from "../components/Footer";
 import "../styles/certificate.css";
 
 const Certificate = () => {
@@ -102,7 +101,6 @@ const Certificate = () => {
           <FaHome /> Home
         </button>
       </div>
-      <Footer />
     </div>
   );
 };
