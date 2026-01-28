@@ -22,7 +22,7 @@ function App() {
       </Routes>
     </Router>
 
-    <Analytics/>
+    <Analytics />
   )
 }
 
