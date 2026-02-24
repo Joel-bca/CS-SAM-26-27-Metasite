@@ -13,25 +13,31 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <QuizProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/rules" element={<Rules />} />
-            <Route path="/quiz" element={<Quiz />} />
-            <Route path="/result" element={<Result />} />
-            <Route path="/certificate" element={<Certificate />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </QuizProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const { data, isLoading } = useAppConfig();
+
+  if (isLoading) return <div>Loading...</div>;
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <QuizProvider appConfig={data}>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/rules" element={<Rules />} />
+              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/result" element={<Result />} />
+              <Route path="/certificate" element={<Certificate />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </QuizProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
